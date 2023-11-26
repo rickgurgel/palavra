@@ -1,6 +1,8 @@
 package br.gurgel.palavra.resources;
 
 import br.gurgel.palavra.domain.Writer;
+import br.gurgel.palavra.services.WriterService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +16,12 @@ import java.util.List;
 @RequestMapping(value = "/writers")
 public class WriterResources {
 
+    @Autowired
+    private WriterService writerService;
+
     @GetMapping
     public ResponseEntity<List<Writer>> findAll(){
-        Writer ricardo = new Writer("1", "morley", "ricardo@gmail.com", "hesoyam");
-        Writer felipe = new Writer("1", "ciaran", "felipe@gmail.com", "hesoyam2");
-        List<Writer> writersList = new ArrayList<>(Arrays.asList(ricardo, felipe));
+        List<Writer> writersList = writerService.findAll();
         return ResponseEntity.ok().body(writersList);
     }
 }
