@@ -24,4 +24,7 @@ public class WriterService {
         return writer.orElseThrow(() -> new ObjectNotFoundException("Escritor não encontrado"));
     }
 
+    public Writer insert(Writer writer){
+        return writerRepository.insert(writer);
+    }
 }

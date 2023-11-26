@@ -5,11 +5,10 @@ import br.gurgel.palavra.dto.WriterDTO;
 import br.gurgel.palavra.services.WriterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -29,6 +28,13 @@ public class WriterResources {
     public ResponseEntity<WriterDTO> findById(@PathVariable String id){
         Writer writer = writerService.findById(id);
         return ResponseEntity.ok().body(new WriterDTO(writer));
+    }
+
+    @PostMapping(value="/register")
+    public ResponseEntity<WriterDTO> insert(@RequestBody Writer writer){
+        writer = writerService.insert(writer);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(writer.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
 }
