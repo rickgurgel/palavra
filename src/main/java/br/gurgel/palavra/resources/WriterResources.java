@@ -4,6 +4,7 @@ import br.gurgel.palavra.domain.Writer;
 import br.gurgel.palavra.dto.WriterDTO;
 import br.gurgel.palavra.services.WriterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.repository.Update;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -40,6 +41,14 @@ public class WriterResources {
     @DeleteMapping(value = "/exclude/{id}")
     public ResponseEntity<WriterDTO> delete(@PathVariable String id){
         writerService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value="/update-data/{id}")
+    public ResponseEntity<Void> update(@RequestBody Writer writer, @PathVariable String id){
+        Writer newWriter = writerService.insert(writer);
+        newWriter.setId(id);
+        newWriter = writerService.update(newWriter);
         return ResponseEntity.noContent().build();
     }
 }

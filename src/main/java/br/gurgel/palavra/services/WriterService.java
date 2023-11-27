@@ -32,4 +32,15 @@ public class WriterService {
         findById(id);
         writerRepository.deleteById(id);
     }
+
+    public Writer update(Writer writer){
+        Writer newWriter = findById(writer.getId());
+        updateData(newWriter, writer);
+        return writerRepository.save(newWriter);
+    }
+
+    private void updateData(Writer newWriter, Writer writer){
+        newWriter.setEmail(writer.getEmail());
+        newWriter.setPseudonym(writer.getPseudonym());
+    }
 }
