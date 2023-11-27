@@ -1,6 +1,7 @@
 package br.gurgel.palavra.services;
 
 import br.gurgel.palavra.domain.Writer;
+import br.gurgel.palavra.dto.WriterDTO;
 import br.gurgel.palavra.repositories.WriterRepository;
 import br.gurgel.palavra.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,4 +44,9 @@ public class WriterService {
         newWriter.setEmail(writer.getEmail());
         newWriter.setPseudonym(writer.getPseudonym());
     }
+
+    public Writer fromDTO (WriterDTO writerDTO){
+        return new Writer(writerDTO.getId(), writerDTO.getPseudonym(), writerDTO.getEmail(), writerDTO.getPassword());
+    }
 }
+

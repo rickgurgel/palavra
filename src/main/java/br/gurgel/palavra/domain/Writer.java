@@ -19,4 +19,6 @@ public class Writer implements Serializable {
     private String pseudonym;
     private String email;
     private String password;
+
+
 }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.lang.reflect.WildcardType;
 import java.net.URI;
 import java.util.List;
 
@@ -45,10 +46,10 @@ public class WriterResources {
     }
 
     @PutMapping(value="/update-data/{id}")
-    public ResponseEntity<Void> update(@RequestBody Writer writer, @PathVariable String id){
-        Writer newWriter = writerService.insert(writer);
-        newWriter.setId(id);
-        newWriter = writerService.update(newWriter);
+    public ResponseEntity<Void> update(@RequestBody WriterDTO writerDTO,@PathVariable String id){
+        Writer writer = writerService.fromDTO(writerDTO);
+        writer.setId(id);
+        writer = writerService.update(writer);
         return ResponseEntity.noContent().build();
     }
 }
