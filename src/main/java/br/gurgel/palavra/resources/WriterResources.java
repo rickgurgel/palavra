@@ -37,4 +37,9 @@ public class WriterResources {
         return ResponseEntity.created(uri).build();
     }
 
+    @DeleteMapping(value = "/exclude/{id}")
+    public ResponseEntity<WriterDTO> delete(@PathVariable String id){
+        writerService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

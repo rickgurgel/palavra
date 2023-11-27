@@ -27,4 +27,9 @@ public class WriterService {
     public Writer insert(Writer writer){
         return writerRepository.insert(writer);
     }
+
+    public void delete(String id){
+        findById(id);
+        writerRepository.deleteById(id);
+    }
 }
